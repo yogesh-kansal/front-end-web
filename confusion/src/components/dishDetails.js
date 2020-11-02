@@ -13,6 +13,7 @@ class Dishdetail extends Component {
     render() {
         if(this.props.dishdetail != null) {
             return(
+                <div className="container">
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
                     <Card>
@@ -30,7 +31,7 @@ class Dishdetail extends Component {
                                 return(
                                 <div key={comment.id}>
                                     <CardText className="ml-2">{comment.comment}</CardText>
-                                    <CardText className="ml-2">--{comment.author}, {comment.date}{<br></br>} {<br></br>}</CardText>                                  
+                                    <CardText className="ml-2">--{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} {<br></br>} {<br></br>}</CardText>                                  
                                 </div>
                                 );
                             })}                           
@@ -38,7 +39,8 @@ class Dishdetail extends Component {
 
                     </div>
                                    
-                </div>         
+                </div>   
+                </div>      
             );
         }
         else {

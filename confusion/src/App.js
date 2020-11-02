@@ -1,35 +1,26 @@
 import React, {Component } from 'react';
 //import logo from './logo.svg';
-import { Navbar, NavbarBrand, NavbarText } from 'reactstrap';
-import Menu from './components/menucomp';
+//import { Navbar, NavbarBrand, NavbarText } from 'reactstrap';
+//import Main from './components/menucomp';
 import './App.css';
-import Dishes from './shared/dishes';
-import Clock from './components/Clock'
+import Maincomp from './components/mainComponent';
+//import Dishes from './shared/dishes';
+//import Clock from './components/Clock'
 
 class App extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
 
     this.state={
       dishes:Dishes
     };
 
-  }
+  }*/
 
   render() {
     return (
-      <div /*className="App"*/>
-        <Navbar dark color="primary">
-          <div className="container">
-            <NavbarBrand href="#">React web App</NavbarBrand>
-    <NavbarText className="text-white">
-      <Clock />
-    </NavbarText>
-          </div>
-        </Navbar>
-        
-        <Menu dishes={this.state.dishes}/>
-                
+      <div /*className="App"*/>        
+        <Maincomp/>                
       </div>
     );
   }
@@ -38,6 +29,16 @@ class App extends Component {
 
 }
 
+/*
+<Navbar dark color="primary">
+          <div className="container">
+            <NavbarBrand href="#">React web App</NavbarBrand>
+    <NavbarText className="text-white">
+      <Clock />
+    </NavbarText>
+          </div>
+        </Navbar>*/
+       
 
 /*
 function App() {

@@ -1,0 +1,3 @@
+to create :- create-react-app <appname> 
+if we have defined elements as default in file then we
+donot have to use '{}' while importing it.
