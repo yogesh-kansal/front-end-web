@@ -4,6 +4,8 @@ import React, {Component } from 'react';
 //import Main from './components/menucomp';
 import './App.css';
 import Maincomp from './components/mainComponent';
+import { BrowserRouter } from 'react-router-dom';
+
 //import Dishes from './shared/dishes';
 //import Clock from './components/Clock'
 
@@ -19,9 +21,12 @@ class App extends Component {
 
   render() {
     return (
-      <div /*className="App"*/>        
-        <Maincomp/>                
-      </div>
+      <BrowserRouter>
+        <div /*className="App"*/>        
+          <Maincomp/>                
+        </div>
+      </BrowserRouter>
+      
     );
   }
   
@@ -29,6 +34,7 @@ class App extends Component {
 
 }
 
+export default App;
 /*
 <Navbar dark color="primary">
           <div className="container">
@@ -63,5 +69,5 @@ function App() {
   );
 }
 */
-export default App;
+
 
