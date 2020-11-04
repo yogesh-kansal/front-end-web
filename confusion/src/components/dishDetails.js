@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Link }  from 'react-router-dom';
 
 class Dishdetail extends Component {
     constructor(props) {
         super(props);
+        console.log(props);
 
         this.state= {
             date:new Date()
@@ -14,6 +16,17 @@ class Dishdetail extends Component {
         if(this.props.dishdetail != null) {
             return(
                 <div className="container">
+                    <div className="row">
+                    <Breadcrumb className="col-12">
+                        <BreadcrumbItem>
+                            <Link to="/menu">Menu</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>{this.props.dishdetail.name}</BreadcrumbItem>                     
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>{this.props.dishdetail.name}</h3>
+                    </div>
+                </div>
+
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
                     <Card>
@@ -27,7 +40,7 @@ class Dishdetail extends Component {
                     <div className="col-12 col-md-5 m-1">
                         <Card>
                             <CardTitle>Comments</CardTitle>
-                            {this.props.dishdetail.comments.map((comment) => {
+                            {this.props.comments.map((comment) => {
                                 return(
                                 <div key={comment.id}>
                                     <CardText className="ml-2">{comment.comment}</CardText>
