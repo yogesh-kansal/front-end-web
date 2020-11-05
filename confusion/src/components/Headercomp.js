@@ -6,8 +6,9 @@ import Clock from './Clock'
 
 class Header extends Component{
     constructor(props) {
+        //console.log('ak :-',props);
         super(props);
-
+        //console.log('pp :-',props);
         this.state = {
             isNavOpen : false
         }

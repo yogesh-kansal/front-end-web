@@ -1,10 +1,11 @@
-import React, {Component } from 'react';
+import React, { Component } from 'react';
 //import logo from './logo.svg';
 //import { Navbar, NavbarBrand, NavbarText } from 'reactstrap';
 //import Main from './components/menucomp';
 import './App.css';
 import Maincomp from './components/mainComponent';
 import { BrowserRouter } from 'react-router-dom';
+import { Comments } from './shared/comments';
 
 //import Dishes from './shared/dishes';
 //import Clock from './components/Clock'
@@ -20,6 +21,7 @@ class App extends Component {
   }*/
 
   render() {
+    console.log(Component);
     return (
       <BrowserRouter>
         <div /*className="App"*/>        
