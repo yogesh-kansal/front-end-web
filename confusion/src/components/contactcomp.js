@@ -49,6 +49,7 @@ class Contact extends Component {
     }
 
     handleBlur = ((feild) => (e) => {
+        //console.log(e);
         this.setState({
             touched: {...this.state.touched,[feild]:true}
         });
@@ -72,19 +73,26 @@ class Contact extends Component {
         else if(this.state.touched.lastname && lastname.length > 10)
             err.lastname ="Last Name should br <= 10 characters";
 
-        const reg = /^\d+$/;
+        //const reg = /^\d+$/;
+        const reg = /^-?\d{10}$/;
+        //console.log(reg);
         if(this.state.touched.telnum && !reg.test(telnum))
-            err.telnum = "Tel. should contain only numbers";
-        
-            if(this.state.touched.email && email.split('').filter(x => x === '@').length !==1)
-                err.email = "Email should contain @ sign";
+            err.telnum = "Tel. should contain only 10 numeric numbers ";
 
+
+        const pattern= /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+            //if(this.state.touched.email && email.split('').filter(x => x === '@').length !==1)
+            if(this.state.touched.email && ! pattern.test(email))
+                err.email = "Email should of form abc@gmail.com";
+
+        
         return err;
 
     }
 
     render() {
         const error = this.validate(this.state.firstname,this.state.lastname, this.state.telnum, this.state.email);
+        const isEnabled = Object.keys(error).some(x => error[x].length !== 0);
         return(
             <div className="container">
                 <div className="row">
@@ -214,7 +222,7 @@ class Contact extends Component {
 
                             <FormGroup row>
                                 <Col md={{size:10, offset:2}}>
-                                    <Button type="submit" color="primary">
+                                    <Button type="submit" color="primary" disabled={isEnabled}>
                                         Send Feedback
                                     </Button>
                                 </Col>
