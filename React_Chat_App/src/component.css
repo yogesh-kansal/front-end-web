@@ -1,0 +1,55 @@
+.row-content-main {
+    padding: 0px;
+    height: 570px;
+    margin-bottom: 1px;
+    
+}
+.container {
+    height: 100%;
+    display: grid;
+}
+
+.message-username {
+    font-size: 20px;
+    color: rgba(2, 2, 36, 0.589);
+}
+ 
+.message-text{
+    color: cyan;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    padding: 2px 2px 2px 2px;
+    margin-top: 0px;
+}
+.room-head {
+    color: floralwhite;
+}
+
+.room-name {
+    color: rgb(130, 198, 238);
+    font-size: x-large;
+}
+
+a:hover {
+    color: rgb(255, 115, 0);
+}
+.modal {
+    color: black;
+}
+.footer {
+    background-color: #512DA8;
+    color: floralwhite;
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+.form-control {
+    border-left:  1px solid darkorchid;
+}
+
+.init-message {
+    margin-top : 50%;
+    margin-left: 50%;
+}
