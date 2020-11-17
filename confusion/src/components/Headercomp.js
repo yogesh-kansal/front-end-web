@@ -4,8 +4,10 @@ import { Navbar, NavbarBrand, NavbarText, Jumbotron, Nav, NavbarToggler, NavItem
             Button, Modal,ModalBody, ModalHeader, 
             Form, Label, Input, FormGroup } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import Watch from './Clock';
 //import Clock from './Clock'
 //import H from '../shared/assets/images/logo.png'
+//import ErrorBoundary from './ErrorBoundary';
 
 class Header extends Component{
     constructor(props) {
@@ -45,13 +47,13 @@ class Header extends Component{
 
     render() {
         return (
-            <>
-            <Navbar dark expand="md">
+            <>            
+            <Navbar dark expand="md"> 
                 <div className="container">
                     <NavbarToggler onClick={this.toggleNav} />
                     <NavbarBrand className="mr-auto" href="/">
                         <img src="assets/images/logo.png" alt="logo" height="30" width="41"/>
-                            </NavbarBrand>
+                    </NavbarBrand>
                             <Collapse isOpen={this.state.isNavOpen} navbar>
                             <Nav navbar>
                                 <NavItem>
@@ -97,6 +99,10 @@ class Header extends Component{
                         <div className="col-12 col-sm-6">
                             <h1> Ristorante Con Fusion</h1>
                             <p>We take inspiration from the World's best cuisines, and create a unique fusion experience. Our lipsmacking creations will tickle your culinary senses!</p>
+                        </div>
+                        <div className="col-12 col-sm">
+
+                            <Watch x ="jo\ker" />
                         </div>
                     </div>
                 </div>

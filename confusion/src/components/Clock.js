@@ -1,8 +1,18 @@
 //const { Component } = require("react")
 
-import React, { Component } from 'react';
+import React from 'react';
+//import ErrorBoundary from './ErrorBoundary';
 
-class Clock extends Component {
+function Watch({x}) {
+    if(x==="joker")
+        throw new Error('ooooh');
+    return (
+        <div>{x}</div>
+    );
+    
+}
+
+/*class Clock extends Component {
     constructor(props) {
         super(props);
 
@@ -22,5 +32,5 @@ class Clock extends Component {
 
 }
 
-
-export default Clock;
+*/
+export default Watch;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, CardFooter } from 'reactstrap';
 import { Link }  from 'react-router-dom';
 
 class Dishdetail extends Component {
@@ -47,7 +47,10 @@ class Dishdetail extends Component {
                                     <CardText className="ml-2">--{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} {<br></br>} {<br></br>}</CardText>                                  
                                 </div>
                                 );
-                            })}                           
+                            })}    
+                            <CardFooter>
+                                
+                            </CardFooter>                       
                         </Card>
 
                     </div>

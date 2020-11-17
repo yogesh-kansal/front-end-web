@@ -46,6 +46,22 @@ class Contact extends Component {
     {
         e.preventDefault();
         alert("Current state is: "+JSON.stringify(this.state));
+        this.setState({
+            firstname: '',
+            lastname: '',
+            telnum: '',
+            email: '',
+            agree: false,
+            contactType: 'Tel.',
+            message: '',
+            touched: {
+                firstname: false,
+                lastname: false,
+                telnum: false,
+                email: false
+            }
+
+        })
     }
 
     handleBlur = ((feild) => (e) => {
@@ -135,6 +151,7 @@ class Contact extends Component {
                     </div>
                 </div>
                 <div className="row row-content">
+                    <div className="col-7 Contact">
                     <div className="col-12">
                         <h3>Send us Your Feedback</h3>
                     </div>
@@ -203,7 +220,7 @@ class Contact extends Component {
                                         </Label>
                                     </Col>
                                 </Col>
-                                <Col md={{size:3, offset:1}}>
+                                <Col md={{size:4, offset:0}}>
                                     <Input type="select" name="contactType"
                                     value={this.state.contactType} onChange={this.handleInpChange}>
                                         <option>Tel.</option>
@@ -229,6 +246,7 @@ class Contact extends Component {
                             </FormGroup>                           
                         </Form>
                     </div>
+                </div>
                 </div>
             </div>
         );

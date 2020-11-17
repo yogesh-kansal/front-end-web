@@ -1,5 +1,5 @@
-import React, {Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import React , {Component } from 'react';
+import { Switch, Route , Redirect } from 'react-router-dom';
 //import logo from './logo.svg';
 //import { Navbar, NavbarBrand, NavbarText } from 'reactstrap';
 //import Clock from './Clock'
@@ -67,9 +67,6 @@ class Maincomp extends Component {
       </div>
     );
   }
-  
-  
-
 }
 
 export default Maincomp;
