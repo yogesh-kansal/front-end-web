@@ -1,12 +1,16 @@
 import React , {Component } from 'react';
-import { Switch, Route , Redirect } from 'react-router-dom';
+import { Switch, Route , Redirect, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 //import logo from './logo.svg';
 //import { Navbar, NavbarBrand, NavbarText } from 'reactstrap';
 //import Clock from './Clock'
-import Dishes from '../shared/dishes';
-import { Comments } from '../shared/comments';
-import { Promotions } from '../shared/promotions';
-import { Leaders } from '../shared/leaders';
+
+// moved to redux store
+//import Dishes from '../shared/dishes';
+//import { Comments } from '../shared/comments';
+//import { Promotions } from '../shared/promotions';
+//import { Leaders } from '../shared/leaders';
+
 import Home from './Home';
 import Header from './Headercomp';
 import Footer from './Footercomp';
@@ -16,16 +20,26 @@ import Dishdetail from './dishDetails';
 import About from './aboutcomp';
 
 
+const takedataASProps = state => {
+  return{
+    dishes : state.dishes,
+    comments : state.comments,
+    promotions: state.promotions,
+    leaders : state.leaders
+  }
+}
+
+
 class Maincomp extends Component {
   constructor(props) {
     super(props);
-    this.state={
+    /*this.state={
       dishes:Dishes,
       comments: Comments,
       promotions: Promotions,
       leaders: Leaders,
       selectedDish: null
-    };
+    };*/
 
   }
 
@@ -38,9 +52,9 @@ class Maincomp extends Component {
     const HomePage = () => {
       return(
         <Home 
-          dish={this.state.dishes.filter((dish) => dish.featured)[0]}
-          promos={this.state.promotions.filter((promo) => promo.featured)[0]}
-          leader={this.state.leaders.filter((leader) => leader.featured)[0]}
+          dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+          promos={this.props.promotions.filter((promo) => promo.featured)[0]}
+          leader={this.props.leaders.filter((leader) => leader.featured)[0]}
         />
       );
     }
@@ -48,8 +62,8 @@ class Maincomp extends Component {
     const DishwithId = ({match}) => {
       //console.log(match);
       return(
-        <Dishdetail dishdetail={this.state.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-        comments={this.state.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}/>
+        <Dishdetail dishdetail={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
+        comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}/>
       );
     }
     return (
@@ -57,9 +71,9 @@ class Maincomp extends Component {
         <Header /> 
         <Switch>
           <Route path="/home" component={HomePage} /> 
-          <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
+          <Route exact path="/menu" component={() => <Menu dishes={this.props.dishes} />} />
           <Route path="/menu/:dishId" component={DishwithId} />
-          <Route path="/aboutus" component={() => <About leaders={this.state.leaders}/>} />
+          <Route path="/aboutus" component={() => <About leaders={this.props.leaders}/>} />
           <Route exact path="/contactus" component={Contact} />
           <Redirect to="/home" />
         </Switch>
@@ -69,7 +83,8 @@ class Maincomp extends Component {
   }
 }
 
-export default Maincomp;
+export default withRouter(connect(takedataASProps)(Maincomp));
+
 
 /*
 <Navbar dark color="primary">

@@ -1,3 +1,19 @@
 to create :- create-react-app <appname> 
 if we have defined elements as default in file then we
 donot have to use '{}' while importing it.
+
+wether app : 
+headers Home login signup
+
+redux : {
+actions have "type" property to define action, are plain js objects
+
+reducer accepts state and action as argumnet and returns a next state
+(prevState, action) => newState
+
+store holds application state,  allows access via getState(), allows updation via dispatch(action),
+resistors listeners by suscribe(listener) method
+
+- combineReducers({objects}) combines multiple reducers.
+
+}

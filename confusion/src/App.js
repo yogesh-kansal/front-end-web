@@ -6,11 +6,12 @@ import React, { Component } from 'react';
 import './App.css';
 import Maincomp from './components/mainComponent';
 import { BrowserRouter } from 'react-router-dom';
+import ErrorBoundary from './components/ErrorBoundary';
+
 import { Provider } from 'react-redux';
 import { ConfigStore } from './redux/configStore';
-import ErrorBoundary from './components/ErrorBoundary'
+//import { Promotions } from './shared/promotions';
 const store= ConfigStore();
-console.log("store is", store);
 
 //import Dishes from './shared/dishes';
 //import Clock from './components/Clock'
@@ -24,23 +25,20 @@ class App extends Component {
     };
 
   }*/
-
   render() {
     //console.log(Component);
     return (
-      <BrowserRouter>
-        <div /*className="App"*/> 
-        <ErrorBoundary>     
-          <Maincomp/>
-          </ErrorBoundary>                
-        </div>
-      </BrowserRouter>
-      
+      <Provider store={store}>
+        <BrowserRouter>
+          <div /*className="App"*/> 
+            <ErrorBoundary>     
+            <Maincomp/>
+            </ErrorBoundary>                
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   }
-  
-  
-
 }
 
 export default App;
