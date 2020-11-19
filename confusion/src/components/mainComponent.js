@@ -18,7 +18,7 @@ import Menu from './menucomp';
 import Contact from './contactcomp';
 import Dishdetail from './dishDetails';
 import About from './aboutcomp';
-
+import {addcomment} from '../redux/actions';
 
 const takedataASProps = state => {
   return{
@@ -29,9 +29,14 @@ const takedataASProps = state => {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return{
+    addComment: (dishId, rating, author, comment) => dispatch(addcomment(dishId, rating, author, comment))
+  }
+}
 
 class Maincomp extends Component {
-  constructor(props) {
+  /*constructor(props) {
     super(props);
     /*this.state={
       dishes:Dishes,
@@ -39,7 +44,7 @@ class Maincomp extends Component {
       promotions: Promotions,
       leaders: Leaders,
       selectedDish: null
-    };*/
+    };
 
   }
 
@@ -63,7 +68,8 @@ class Maincomp extends Component {
       //console.log(match);
       return(
         <Dishdetail dishdetail={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
-        comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}/>
+        comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
+        addComment = {this.props.addComment}/>
       );
     }
     return (
@@ -83,7 +89,7 @@ class Maincomp extends Component {
   }
 }
 
-export default withRouter(connect(takedataASProps)(Maincomp));
+export default withRouter(connect(takedataASProps, mapDispatchToProps)(Maincomp));
 
 
 /*

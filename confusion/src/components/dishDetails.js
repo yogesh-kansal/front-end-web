@@ -27,10 +27,12 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        alert("Comment state is: "+JSON.stringify(values));
+        //alert("Comment state is: "+JSON.stringify(values));
         this.setState({
             isOpen: !this.state.isOpen
-        })
+        });
+        console.log(values);
+        this.props.comment(this.props.dishId, values.rating,values.name, values.message);
     }
     
     render() {
@@ -39,11 +41,11 @@ class CommentForm extends Component {
                 <ModalHeader toggle={this.handleToggle} >Add comment</ModalHeader>
                 <ModalBody>
                     <LocalForm
-                    onSubmit={this.handleSubmit}>
+                    onSubmit={(values)=> this.handleSubmit(values)}>
                         <Row className="form-group">
                             <Label htmlFor="rating" name="rating" className="col-12">Rating</Label>
                             <Col className="m-2 mt-0">
-                                <Control.select model=".rating" id="rating" name="Rating"
+                                <Control.select model=".rating" id="rating" name="rating"
                                 className="form-control row">
                                     <option>1</option>
                                     <option>2</option>
@@ -57,10 +59,10 @@ class CommentForm extends Component {
                         <Row className="form-group">
                             <Label htmlFor="name" id="name" className="col-12">Name</Label>
                             <Col className="m-2 mt-0">
-                                <Control.text model=".name" id="name" name="name" placeholder="Your name"
+                                <Control.text model=".name" id="name" name="autor" placeholder="Your name"
                                 className="form-control row"
                                 validators={{
-                                required, minLength: min_len(3),maxLength:max_len(10)}}/>
+                                required, minLength: min_len(3),maxLength:max_len(15)}}/>
                                 <Errors 
                                     className="text-danger"
                                     model=".name"
@@ -68,7 +70,7 @@ class CommentForm extends Component {
                                     messages={{
                                     required: 'required!!!',
                                         minLength: 'name must greater than 2 chars',
-                                        maxLength: 'name must less than 11 chars'
+                                        maxLength: 'name must less than 15 chars'
                                     }}
                                     >
                                 </Errors>
@@ -78,7 +80,7 @@ class CommentForm extends Component {
                         <Row className="form-group">
                             <Label htmlFor="message" className="col-12">your Feedback</Label>
                                 <Col className="m-2 col-8 mt-0">
-                                    <Control.textarea model=".message" id="message" name="message" rows="6"
+                                    <Control.textarea model=".message" id="message" name="comment" rows="6"
                                     className="form-control" /> 
                                 </Col>
                         </Row>
@@ -155,7 +157,7 @@ class Dishdetail extends Component {
                                 <Button outline={true} color="primary" onClick={this.call}>
                                     <span className="fa fa-pencil fa-lg"> </span> Add Comments
                                 </Button>
-                                {this.state.yes?<CommentForm /> : null}
+                                {this.state.yes?<CommentForm dishId={this.props.dishdetail.id} comment={this.props.addComment} /> : null}
                             </div>  
                                              
                         </Card>
