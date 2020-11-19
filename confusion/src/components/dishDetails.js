@@ -1,15 +1,118 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, CardFooter } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button} from 'reactstrap';
+
+import { Modal, Col, Row, Label, ModalHeader, ModalBody} from 'reactstrap';
+import { Control, LocalForm, Errors } from "react-redux-form";
 import { Link }  from 'react-router-dom';
+
+const required = (value) => value && value.length;
+const max_len = ((len) => (val) => !(val) ||(val.length <= len));
+const min_len = ((len) => (val) => val && (val.length >= len));
+
+class CommentForm extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state={
+            isOpen:true
+        }
+        this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleToggle=this.handleToggle.bind(this);
+    }
+
+    handleToggle() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        })
+    }
+
+    handleSubmit(values) {
+        alert("Comment state is: "+JSON.stringify(values));
+        this.setState({
+            isOpen: !this.state.isOpen
+        })
+    }
+    
+    render() {
+        return (            
+            <Modal isOpen ={this.state.isOpen} toggle ={this.handleToggle}>
+                <ModalHeader toggle={this.handleToggle} >Add comment</ModalHeader>
+                <ModalBody>
+                    <LocalForm
+                    onSubmit={this.handleSubmit}>
+                        <Row className="form-group">
+                            <Label htmlFor="rating" name="rating" className="col-12">Rating</Label>
+                            <Col className="m-2 mt-0">
+                                <Control.select model=".rating" id="rating" name="Rating"
+                                className="form-control row">
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </Control.select>
+                            </Col>
+                            
+                        </Row>
+                        <Row className="form-group">
+                            <Label htmlFor="name" id="name" className="col-12">Name</Label>
+                            <Col className="m-2 mt-0">
+                                <Control.text model=".name" id="name" name="name" placeholder="Your name"
+                                className="form-control row"
+                                validators={{
+                                required, minLength: min_len(3),maxLength:max_len(10)}}/>
+                                <Errors 
+                                    className="text-danger"
+                                    model=".name"
+                                    show="touched"
+                                    messages={{
+                                    required: 'required!!!',
+                                        minLength: 'name must greater than 2 chars',
+                                        maxLength: 'name must less than 11 chars'
+                                    }}
+                                    >
+                                </Errors>
+                            </Col>    
+                        </Row>
+
+                        <Row className="form-group">
+                            <Label htmlFor="message" className="col-12">your Feedback</Label>
+                                <Col className="m-2 col-8 mt-0">
+                                    <Control.textarea model=".message" id="message" name="message" rows="6"
+                                    className="form-control" /> 
+                                </Col>
+                        </Row>
+                        <Row className="form-group">
+                             <Col md={{size:10, offset:2}}>
+                                <Button type="submit" color="primary" disabled={false}>
+                                    Add Comment
+                                </Button>
+                            </Col>
+                        </Row> 
+                    </LocalForm>
+                </ModalBody>      
+            </Modal>
+        );
+    }
+}
+
 
 class Dishdetail extends Component {
     constructor(props) {
         super(props);
-        console.log(props);
+        //console.log(props);
 
         this.state= {
-            date:new Date()
+            date:new Date(),
+            yes: false
         };
+        this.call=this.call.bind(this);
+    }
+
+    call() {
+        this.setState({
+            yes:!this.state.yes
+        })
     }
 
     render() {
@@ -47,10 +150,14 @@ class Dishdetail extends Component {
                                     <CardText className="ml-2">--{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} {<br></br>} {<br></br>}</CardText>                                  
                                 </div>
                                 );
-                            })}    
-                            <CardFooter>
-                                
-                            </CardFooter>                       
+                            })}  
+                            <div className="col">
+                                <Button outline={true} color="primary" onClick={this.call}>
+                                    <span className="fa fa-pencil fa-lg"> </span> Add Comments
+                                </Button>
+                                {this.state.yes?<CommentForm /> : null}
+                            </div>  
+                                             
                         </Card>
 
                     </div>
