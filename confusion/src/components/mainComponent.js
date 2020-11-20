@@ -18,7 +18,7 @@ import Menu from './menucomp';
 import Contact from './contactcomp';
 import Dishdetail from './dishDetails';
 import About from './aboutcomp';
-import {addcomment} from '../redux/actions';
+import {addcomment, fetchDishes} from '../redux/actions';
 
 const takedataASProps = state => {
   return{
@@ -31,33 +31,25 @@ const takedataASProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    addComment: (dishId, rating, author, comment) => dispatch(addcomment(dishId, rating, author, comment))
+    addComment: (dishId, rating, author, comment) => dispatch(addcomment(dishId, rating, author, comment)),
+    fetchDishes: () => {dispatch(fetchDishes())}
   }
 }
 
 class Maincomp extends Component {
-  /*constructor(props) {
-    super(props);
-    /*this.state={
-      dishes:Dishes,
-      comments: Comments,
-      promotions: Promotions,
-      leaders: Leaders,
-      selectedDish: null
-    };
 
+  componentDidMount() {
+    this.props.fetchDishes();
   }
-
-  /*onDishSelect(dishId) {
-    this.setState({selectedDish: dishId});
-    }*/
 
   render() {
 
     const HomePage = () => {
       return(
         <Home 
-          dish={this.props.dishes.filter((dish) => dish.featured)[0]}
+          dish={this.props.dishes.dishes.filter((dish) => dish.featured)[0]}
+          dishloading = {this.props.dishes.isLoading}
+          disherr = {this.props.dishes.err}
           promos={this.props.promotions.filter((promo) => promo.featured)[0]}
           leader={this.props.leaders.filter((leader) => leader.featured)[0]}
         />
@@ -67,9 +59,12 @@ class Maincomp extends Component {
     const DishwithId = ({match}) => {
       //console.log(match);
       return(
-        <Dishdetail dishdetail={this.props.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
+        <Dishdetail dishdetail={this.props.dishes.dishes.filter((dish) => dish.id === parseInt(match.params.dishId,10))[0]} 
         comments={this.props.comments.filter((comment) => comment.dishId === parseInt(match.params.dishId,10))}
-        addComment = {this.props.addComment}/>
+        addComment = {this.props.addComment}
+        loading = {this.props.dishes.isLoading}
+        err = {this.props.dishes.err}
+        />
       );
     }
     return (
@@ -93,6 +88,23 @@ export default withRouter(connect(takedataASProps, mapDispatchToProps)(Maincomp)
 
 
 /*
+/*constructor(props) {
+    super(props);
+    /*this.state={
+      dishes:Dishes,
+      comments: Comments,
+      promotions: Promotions,
+      leaders: Leaders,
+      selectedDish: null
+    };
+
+  }
+
+  /*onDishSelect(dishId) {
+    this.setState({selectedDish: dishId});
+    }
+
+
 <Navbar dark color="primary">
           <div className="container">
             <NavbarBrand href="#">React web App</NavbarBrand>

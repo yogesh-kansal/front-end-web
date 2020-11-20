@@ -1,5 +1,7 @@
-import { createStore,combineReducers } from 'redux';
+import { createStore,combineReducers, applyMiddleware } from 'redux';
 import { dishReducer, promoReducer, leaderReducer, commentReducer } from './reducer';
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 export const ConfigStore =() => {
     //creates store for state
@@ -9,8 +11,9 @@ export const ConfigStore =() => {
             comments: commentReducer,
             promotions: promoReducer,
             leaders: leaderReducer
-        })
+        }),
+        applyMiddleware(thunk, logger)
     );
-    console.log("this is",store)
+    console.log("this is",store.getState());
     return store;
 }

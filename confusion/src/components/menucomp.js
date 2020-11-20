@@ -2,7 +2,7 @@
 
 import React, {Component} from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
-// import Dishdetail from './dishDetails';
+import LoadingSpinner from './loadingSpinner';
 import { Link } from 'react-router-dom';
 
 class Menu extends Component {
@@ -47,9 +47,7 @@ class Menu extends Component {
         
     }*/
     render() {
-        console.log('render Did called');
-
-        const menu= this.props.dishes.map((dish) => {
+        const menu= this.props.dishes.dishes.map((dish) => {
             return(
                 <div key={dish.id} className="col-12 col-md-5 m-1">
                     <Card >
@@ -64,30 +62,49 @@ class Menu extends Component {
             );
         });
 
-        return(
-            <div className="container">
-                <div className="row">
-                    <Breadcrumb className="col-12">
-                        <BreadcrumbItem>
-                            <Link to="/home">Home</Link>    
-                        </BreadcrumbItem>
-                        <BreadcrumbItem active>Menu  
-                        </BreadcrumbItem>                     
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>Menu</h3>
+        if(this.props.dishes.isLoading) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <LoadingSpinner />
                     </div>
                 </div>
-
-                <div className="row">
-                        {menu}
+            );
+        }
+        else if(this.props.dishes.err) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <h4>{this.props.dishes.err}</h4>
+                    </div>
                 </div>
-                    
-            </div>
-        );
+            );
+        }
+        else {
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb className="col-12">
+                            <BreadcrumbItem>
+                                <Link to="/home">Home</Link>    
+                            </BreadcrumbItem>
+                            <BreadcrumbItem active>Menu  
+                            </BreadcrumbItem>                     
+                        </Breadcrumb>
+                        <div className="col-12">
+                            <h3>Menu</h3>
+                        </div>
+                    </div>
+    
+                    <div className="row">
+                            {menu}
+                    </div>
+                        
+                </div>
+            );
+        }
     } 
 }
-
 export default Menu;
 
 /*

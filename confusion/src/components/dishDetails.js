@@ -5,6 +5,8 @@ import { Modal, Col, Row, Label, ModalHeader, ModalBody} from 'reactstrap';
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { Link }  from 'react-router-dom';
 
+import LoadingSpinner from './loadingSpinner';
+
 const required = (value) => value && value.length;
 const max_len = ((len) => (val) => !(val) ||(val.length <= len));
 const min_len = ((len) => (val) => val && (val.length >= len));
@@ -118,7 +120,25 @@ class Dishdetail extends Component {
     }
 
     render() {
-        if(this.props.dishdetail != null) {
+        if(this.props.loading) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <LoadingSpinner />
+                    </div>
+                </div>
+            );
+        }
+        else if(this.props.err) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <h4>{this.props.err}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else if(this.props.dishdetail != null) {
             return(
                 <div className="container">
                     <div className="row">
@@ -148,6 +168,11 @@ class Dishdetail extends Component {
                             {this.props.comments.map((comment) => {
                                 return(
                                 <div key={comment.id}>
+                                    <CardText className="ml-2">{() => {
+                                        return(                                       
+                                            <span className="fa fa-star"></span>                                        
+                                        );
+                                    }}<span className="fa fa-star"></span></CardText>
                                     <CardText className="ml-2">{comment.comment}</CardText>
                                     <CardText className="ml-2">--{comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))} {<br></br>} {<br></br>}</CardText>                                  
                                 </div>
